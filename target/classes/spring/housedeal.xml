@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- mappers/gueset.xml -->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="housedeal">
+
+   <select id="deal_list" resultType="housedeal">
+      select * from housedeal
+   </select>
+   <select id="deal_info" resultType="housedeal">
+      select * from housedeal
+      where no = #{no};
+   </select>
+   <select id="selectSido" resultType="areainfo">
+      select left(acode,2) as acode ,city from areainfo 
+      where gu ="";
+   </select>
+
+   <select id="selectGugun" parameterType="java.lang.String"
+      resultType="areainfo">
+      select left(acode,5) as acode ,gu from areainfo 
+      where dong="" and not(gu="") and left(acode,2)=#{sido} ;
+   </select>
+
+   <select id="selectDong" parameterType="java.lang.String"
+      resultType="houseinfo">
+      SELECT distinct dong  FROM houseinfo
+      where code = #{gugun} ORDER BY dong;
+   </select>
+
+   <select id="selectApt" parameterType="java.lang.String"
+      resultType="houseinfo">
+      SELECT no,dong,AptName,code,jibun FROM houseinfo 
+      WHERE dong= #{dong} ORDER BY AptName;
+   </select>
+   <select id="search" parameterType="housedealxml"
+      resultType="housedeal">
+      SELECT * FROM housedeal
+      where 1=1
+      <if test="key  != '' and key   != null ">
+         <choose>
+            <when test="key =='dong'">
+               and dong like concat('%',#{word},'%')
+            </when>
+            <when test="key=='Aptname' ">
+               and AptName like concat('%',#{word},'%')
+            </when>
+            <otherwise>
+               and dong like concat('%',#{word},'%') or AptName like concat('%',#{word},'%') 
+            </otherwise>
+         </choose>
+      </if>
+      and type in(
+      <foreach collection="types" item="item" separator=",">
+         #{item}
+      </foreach>
+      )
+   </select>
+   <select id="findGuCenterLocation" parameterType="java.lang.String" resultType="location">
+      select name, lat, lng from gulocation where code = #{code}
+   </select>
+   
+   <select id="findGreenList" parameterType="java.lang.String" resultType="greeninfo">
+      select name, gucode,lat, lng from greenbelt where gucode = #{code}
+   </select> 
+   <select id="findaddress" parameterType="java.lang.String" resultType="areainfo">
+      select city, gu, dong from areainfo where dong = #{dong} limit 1
+   </select>
+   
+   <select id="sliderRangeList" resultType="housedeal">
+      SELECT distinct dong,AptName  FROM housedeal
+      where dealAmount between #{data1} and #{data2}
+   </select>
+   <select id="dongANameHouseinfo" parameterType="houseinfo"
+      resultType="houseinfo">
+      SELECT distinct no,dong,AptName,code,lat,lng  FROM houseinfo
+      where dong like concat('%',#{dong},'%') or AptName like concat('%',#{AptName},'%') 
+      limit 1
+   </select>
+   
+   <select id="infodongAptToDeal" parameterType="houseinfo" resultType="housedeal">
+      SELECT * FROM housedeal
+      where dong like concat('%',#{dong},'%') and AptName =#{AptName} 
+      limit 1
+   </select>
+
+<select id="noToDongApt" parameterType="int" resultType="houseinfo">
+      SELECT dong,AptName  FROM houseinfo
+      where no= #{no}
+   </select>
+
+   <select id="pageList" parameterType="pagenav" resultType="housedeal">
+      SELECT no,dong,AptName,code,dealAmount,type,click   FROM housedeal
+      where
+      <if test="key  != '' and key   != null ">
+         <choose>
+            <when test="key =='dong'">
+               dong like concat('%',#{word},'%')
+            </when>
+            <when test="key=='Aptname' ">
+               AptName like concat('%',#{word},'%')
+            </when>
+            <otherwise>
+               1=1
+            </otherwise>
+         </choose>
+      </if>
+      and type in(
+      <foreach collection="types" item="item" separator=",">
+         #{item}
+      </foreach>
+      ) order by no limit #{pg}, 10
+   </select>
+
+   <select id="totalcnt" parameterType="pagenav" resultType="int">
+      SELECT count(no)   FROM housedeal
+      where
+      <if test="key  != '' and key   != null ">
+         <choose>
+            <when test="key =='dong'">
+               dong like concat('%',#{word},'%')
+            </when>
+            <when test="key=='Aptname' ">
+               AptName like concat('%',#{word},'%')
+            </when>
+            <otherwise>
+               1=1
+            </otherwise>
+         </choose>
+      </if>
+      order by no
+   </select>
+   <update id="updateclick" parameterType="java.lang.Integer">
+      update housedeal set click = click +1 where no = #{no};
+   </update>
+   
+   <select id="hotlist" resultType="housedeal">
+      SELECT no,dong,AptName  FROM housedeal
+      order by click desc limit 9
+   </select>
+</mapper>
+
+
+
+     

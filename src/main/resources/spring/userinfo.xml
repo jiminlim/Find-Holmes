@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="userinfo">
+
+
+	<update id="updatePassword" parameterType="userinfo">
+		update user set
+		password = #{password} where id = #{id}
+	</update>
+
+	<select id="isExist" parameterType="java.lang.String"
+		resultType="java.lang.String">
+		select id from user where ID = #{id}
+	</select>
+	<insert id="join" parameterType="userinfo">
+		insert
+		into
+		user(id,password,name,emailid,emaildomain,tel1,tel2,tel3,address,address_detail)
+		values(#{id},#{password},#{name},#{emailid},#{emaildomain},#{tel1},#{tel2},#{tel3},#{address},#{address_detail})
+	</insert>
+	<select id="login" parameterType="userinfo"
+		resultType="userinfo">
+		select
+		id,password,name,emailid,emaildomain,tel1,tel2,tel3,address,address_detail,admin
+		from user where id=#{id} and password=#{password}
+	</select>
+
+	<update id="updateInfo" parameterType="userinfo">
+		update user set password =
+		#{password},name = #{name},emailid =#{emailid},
+		emaildomain
+		=#{emaildomain},tel1= #{tel1},tel2 =#{tel2},tel3 = #{tel3},
+		address =
+		#{address},address_detail = #{address_detail} where id=#{id}
+	</update>
+
+	<delete id="deleteInfo" parameterType="java.lang.String">
+		delete from user where
+		id=#{id}
+	</delete>
+	<select id="searchInfo" parameterType="java.lang.String" resultType="userinfo">
+		select id,password,name,emailid,emaildomain,tel1,tel2,tel3,address,address_detail,admin
+		from user 
+		where id=#{id}
+	</select>
+	<select id="findpwd" parameterType="userinfo" resultType="int">
+		select
+		count(id) from user where id=#{id} and tel1=#{tel1} and tel2=#{tel2}
+		and tel3=#{tel3}
+	</select>
+	<select id="idCheck" parameterType="java.lang.String" resultType="int">
+		SELECT count(*) cnt FROM user WHERE id = #{idFromAjax}
+	</select>
+    <select id="test" resultType="userinfo">
+		SELECT * FROM user
+	</select>
+
+</mapper>

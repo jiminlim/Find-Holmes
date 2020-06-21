@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- mappers/gueset.xml -->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="envi">
+    
+    <select id="bizcount" parameterType="java.lang.String" resultType="environmentinfo">
+select distinct bizcode from enviroment where dong like concat('%',#{dong},'%')
+    </select>
+    
+	<select id="getAddress" parameterType="environmentinfo" resultType="environmentinfo">
+select address from enviroment 
+where dong like concat('%',#{dong},'%') and bizcode = #{bizcode} 
+
+    </select>
+</mapper>    
+    

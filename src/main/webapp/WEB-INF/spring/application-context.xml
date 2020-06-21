@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <!-- 빈 등록 하세요  -->
+    <context:component-scan base-package="com.ssafy.happyhouse.service"/>
+    <context:component-scan base-package="com.ssafy.happyhouse.dao"/>
+    
+	<!-- properties 파일 인식을 위한 설정 -->
+	<context:property-placeholder  location="classpath:spring/config.properties"/>
+	
+	<!-- Connection Pool을 위한 DataSource 설정 -->
+	<bean  id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"  destroy-method="close">
+		<property name="driverClassName"  	value="${jdbc.driver}" />
+		<property name="url"  				value="${jdbc.url}" />
+		<property name="username"  			value="${jdbc.user}" />
+		<property name="password"  			value="${jdbc.password}" />
+		<property name="maxActive"  		value="${jdbc.maxPoolSize}" />
+	</bean>
+	
+	<!-- MyBatis 설정  -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource"  ref="dataSource"/>
+		<!-- MyBatis 기본 설정 XML 등록 -->
+		<property name="configLocation"  value="classpath:spring/SqlMapConfig.xml"/>
+		<!-- query를 위한 xml 등록 -->
+		<property name="mapperLocations">
+			<list>
+				<value>classpath:spring/userinfo.xml</value>
+				<value>classpath:spring/housedeal.xml</value>
+				<value>classpath:spring/notice.xml</value>
+				<value>classpath:spring/envi.xml</value>
+			</list>
+		</property>
+	</bean>
+	<bean  id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory"/>
+	</bean>
+
+</beans>

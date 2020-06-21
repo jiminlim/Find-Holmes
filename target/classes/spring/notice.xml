@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- mappers/gueset.xml -->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="notice">
+    
+    <select id="getlist" resultType="noticedto">
+    	select * 
+    	from notice
+    </select>
+    <select id="info" resultType="noticedto">
+    	select * 
+    	from notice
+    	where no = #{no}
+    </select>
+    <delete id="delete" parameterType="java.lang.Integer">
+		delete from notice where
+		no=#{no}
+	</delete>
+	<update id="mvmodify" parameterType="noticedto">
+       update notice
+       set subject=#{subject}, content=#{content}
+      where no=#{no}
+   </update>
+   
+   <insert id="write" parameterType="noticedto">
+		insert into notice 
+		(id, subject, content , regtime )value ( #{id}, #{subject}, #{content},now());
+	</insert>
+	
+</mapper>    
+    

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<!-- Type Alias 등록 하세요  -->
+		<typeAlias type="com.ssafy.happyhouse.dto.UserInfo"	alias="userinfo"/>
+		<typeAlias type="com.ssafy.happyhouse.dto.HouseDeal" alias="housedeal"/>
+		<typeAlias type="com.ssafy.happyhouse.dto.HouseInfo"	alias="houseinfo"/>
+		<typeAlias type="com.ssafy.happyhouse.dto.NoticeDto" alias="noticedto"/>
+		<typeAlias type="com.ssafy.happyhouse.dto.AreaInfo" alias="areainfo"/>
+		<typeAlias type="com.ssafy.happyhouse.dto.HouseDealXML" alias="housedealxml"/>
+		<typeAlias type="com.ssafy.happyhouse.dto.Location" alias="location"/>
+		<typeAlias type="com.ssafy.happyhouse.dto.GreenInfo"	alias="greeninfo"/>
+		<typeAlias type="com.ssafy.happyhouse.util.PageDTO"	alias="pagenav"/>
+		<typeAlias type="com.ssafy.happyhouse.dto.EnvironmentInfo"	alias="environmentinfo"/>
+		
+<!-- 		
+		<typeAlias type="com.ssafy.happyhouse.dto.SidoCodeDTO" alias="sidocodedto"/>
+		<typeAlias type="com.ssafy.happyhouse.dto.HouseDeal"	alias="housedeal"/>
+		<typeAlias type="com.ssafy.happyhouse.dto.PinArea"	alias="pinarea"/>
+		<typeAlias type="com.ssafy.happyhouse.dto.StoreInfo"	alias="storeinfo"/>
+		 -->
+	</typeAliases>
+	<mappers>
+		
+	</mappers>
+</configuration>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
