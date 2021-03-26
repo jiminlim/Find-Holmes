@@ -14,8 +14,6 @@
 > Front-end (조용우) <br>
 > JSP, Bootstrap, CSS 
 
-<br>
-
 > Back-end (임지민) <br>
 > JAVA, Spring MVC, Mysql(MysqlWorkbench)
 
