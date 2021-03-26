@@ -10,11 +10,12 @@
 > 랭킹 기능 및 회원 CRUD       <br>
 > 아파트,주택 매매가 검색 기능<br>
 
-<br>
 #### :shipit: 기술 스택
 > Front-end (조용우) <br>
-> JSP, Bootstrap, CSS <br>
+> JSP, Bootstrap, CSS 
+
 <br>
+
 > Back-end (임지민) <br>
 > JAVA, Spring MVC, Mysql(MysqlWorkbench)
 
